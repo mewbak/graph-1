@@ -394,7 +394,7 @@ tests:
 
 			before := Q(g, communities, structure.resolution)
 
-			l := newLocalMover(reduce(g, nil), communities, structure.resolution)
+			l := newUndirectedLocalMover(reduceUndirected(g, nil), communities, structure.resolution)
 			if l == nil {
 				if !math.IsNaN(before) {
 					t.Errorf("unexpected nil localMover with non-NaN Q graph: Q=%.4v", before)
@@ -499,7 +499,7 @@ tests:
 			gQ := Q(g, communities, structure.resolution)
 			gQnull := Q(g, nil, 1)
 
-			cg0 := reduce(g, nil)
+			cg0 := reduceUndirected(g, nil)
 			cg0Qnull := Q(cg0, cg0.Structure(), 1)
 			if !floats.EqualWithinAbsOrRel(gQnull, cg0Qnull, structure.tol, structure.tol) {
 				t.Errorf("disgagreement between null Q from method: %v and function: %v", cg0Qnull, gQnull)
@@ -509,7 +509,7 @@ tests:
 				t.Errorf("unexpected Q result after initial conversion: got: %v want :%v", gQ, cg0Q)
 			}
 
-			cg1 := reduce(cg0, communities)
+			cg1 := reduceUndirected(cg0, communities)
 			cg1Q := Q(cg1, cg1.Structure(), structure.resolution)
 			if !floats.EqualWithinAbsOrRel(gQ, cg1Q, structure.tol, structure.tol) {
 				t.Errorf("unexpected Q result after initial condensation: got: %v want :%v", gQ, cg1Q)
@@ -609,9 +609,9 @@ func TestMoveLocal(t *testing.T) {
 				sort.Sort(ordered.ByID(communities[i]))
 			}
 
-			r := reduce(reduce(g, nil), communities)
+			r := reduceUndirected(reduceUndirected(g, nil), communities)
 
-			l := newLocalMover(r, r.communities, structure.resolution)
+			l := newUndirectedLocalMover(r, r.communities, structure.resolution)
 			for _, n := range structure.targetNodes {
 				dQ, dst, src := l.deltaQ(n)
 				if dQ > 0 {
@@ -706,7 +706,7 @@ func TestLouvain(t *testing.T) {
 				}
 				sort.Sort(ordered.BySliceIDs(communities))
 			} else {
-				communities = reduce(g, nil).Communities()
+				communities = reduceUndirected(g, nil).Communities()
 			}
 			q := Q(p, nil, 1)
 			if math.IsNaN(q) {
