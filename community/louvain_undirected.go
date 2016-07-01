@@ -15,17 +15,17 @@ import (
 	"github.com/gonum/graph/internal/ordered"
 )
 
-// Q returns the modularity Q score of the graph g subdivided into the
+// qUndirected returns the modularity Q score of the graph g subdivided into the
 // given communities at the given resolution. If communities is nil, the
 // unclustered modularity score is returned. The resolution parameter
 // is γ as defined in Reichardt and Bornholdt doi:10.1103/PhysRevE.74.016110.
-// Q will panic if g has any edge with negative edge weight.
+// qUndirected will panic if g has any edge with negative edge weight.
 //
 //  Q = 1/2m \sum_{ij} [ A_{ij} - (\gamma k_i k_j)/2m ] \delta(c_i,c_j)
 //
 // graph.Undirect may be used as a shim to allow calculation of Q for
 // directed graphs.
-func Q(g graph.Undirected, communities [][]graph.Node, resolution float64) float64 {
+func qUndirected(g graph.Undirected, communities [][]graph.Node, resolution float64) float64 {
 	nodes := g.Nodes()
 	weight := weightFuncFor(g)
 

@@ -15,15 +15,15 @@ import (
 	"github.com/gonum/graph/internal/ordered"
 )
 
-// Qdir returns the modularity Q score of the graph g subdivided into the
+// qDirected returns the modularity Q score of the graph g subdivided into the
 // given communities at the given resolution. If communities is nil, the
 // unclustered modularity score is returned. The resolution parameter
 // is γ as defined in Reichardt and Bornholdt doi:10.1103/PhysRevE.74.016110.
-// Qdir will panic if g has any edge with negative edge weight.
+// qDirected will panic if g has any edge with negative edge weight.
 //
 //  Q = 1/m \sum_{ij} [ A_{ij} - (\gamma k_i^in k_j^out)/m ] \delta(c_i,c_j)
 //
-func Qdir(g graph.Directed, communities [][]graph.Node, resolution float64) float64 {
+func qDirected(g graph.Directed, communities [][]graph.Node, resolution float64) float64 {
 	nodes := g.Nodes()
 	weight := weightFuncFor(g)
 
