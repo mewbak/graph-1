@@ -611,7 +611,7 @@ func (l *directedLocalMover) deltaQ(n graph.Node) (deltaQ float64, dst int, src 
 		case removal:
 			// The community c was the current community,
 			// so calculate the change due to removal.
-			dQremove = (k_aC.in /*^𝛼*/ - a_aa) + (k_aC.out /*^𝛼*/ - a_aa) -
+			dQremove = 2*((k_aC.in /*^𝛼*/ -a_aa)+(k_aC.out /*^𝛼*/ -a_aa)) -
 				gamma*(k_a.in*(sigma_totC.in /*^𝛼*/ -k_a.in)+k_a.out*(sigma_totC.out /*^𝛼*/ -k_a.out))/m
 
 		default:
@@ -627,5 +627,5 @@ func (l *directedLocalMover) deltaQ(n graph.Node) (deltaQ float64, dst int, src 
 		}
 	}
 
-	return 2 * (dQadd - dQremove) / m, dst, src
+	return (dQadd - dQremove) / m, dst, src
 }

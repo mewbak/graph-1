@@ -74,31 +74,34 @@ var communityDirectedQTests = []struct {
 				memberships: []set{
 					0: linksTo(0, 1, 2, 3, 7, 11, 12, 13, 17, 19, 21),
 					1: linksTo(4, 5, 6, 10, 16),
-					2: linksTo(8, 9, 14, 15, 18, 20, 22, 23, 26, 29, 30, 32, 33),
-					3: linksTo(24, 25, 27, 28, 31),
+					2: linksTo(8, 9, 14, 15, 18, 20, 22, 26, 29, 30, 32, 33),
+					3: linksTo(23, 24, 25, 27, 28, 31),
 				},
-				want: 0.43358436148053187, tol: 1e-4,
+				want: 0.43470597660631316, tol: 1e-4,
 			},
 		},
 		wantLevels: []level{
 			{
-				q: 0.43358436148053187,
+				q: 0.43470597660631316,
 				communities: [][]graph.Node{
 					{simple.Node(0), simple.Node(1), simple.Node(2), simple.Node(3), simple.Node(7), simple.Node(11), simple.Node(12), simple.Node(13), simple.Node(17), simple.Node(19), simple.Node(21)},
 					{simple.Node(4), simple.Node(5), simple.Node(6), simple.Node(10), simple.Node(16)},
-					{simple.Node(8), simple.Node(9), simple.Node(14), simple.Node(15), simple.Node(18), simple.Node(20), simple.Node(22), simple.Node(23), simple.Node(26), simple.Node(29), simple.Node(30), simple.Node(32), simple.Node(33)},
-					{simple.Node(24), simple.Node(25), simple.Node(27), simple.Node(28), simple.Node(31)},
+					{simple.Node(8), simple.Node(9), simple.Node(14), simple.Node(15), simple.Node(18), simple.Node(20), simple.Node(22), simple.Node(26), simple.Node(29), simple.Node(30), simple.Node(32), simple.Node(33)},
+					{simple.Node(23), simple.Node(24), simple.Node(25), simple.Node(27), simple.Node(28), simple.Node(31)},
 				},
 			},
 			{
-				q: 0.4076269828553117,
+				q: 0.35410991828232663,
 				communities: [][]graph.Node{
 					{simple.Node(0), simple.Node(1), simple.Node(2), simple.Node(3), simple.Node(7), simple.Node(11), simple.Node(12), simple.Node(13), simple.Node(17), simple.Node(19), simple.Node(21)},
 					{simple.Node(4), simple.Node(10)},
 					{simple.Node(5), simple.Node(6), simple.Node(16)},
 					{simple.Node(8), simple.Node(30)},
-					{simple.Node(9), simple.Node(14), simple.Node(15), simple.Node(18), simple.Node(20), simple.Node(22), simple.Node(23), simple.Node(26), simple.Node(29), simple.Node(32), simple.Node(33)},
-					{simple.Node(24), simple.Node(25), simple.Node(27), simple.Node(28), simple.Node(31)},
+					{simple.Node(9), simple.Node(14), simple.Node(15), simple.Node(18), simple.Node(20), simple.Node(22), simple.Node(32), simple.Node(33)},
+					{simple.Node(23), simple.Node(25)},
+					{simple.Node(24), simple.Node(27)},
+					{simple.Node(26), simple.Node(29)},
+					{simple.Node(28), simple.Node(31)},
 				},
 			},
 			{
@@ -164,12 +167,13 @@ var communityDirectedQTests = []struct {
 				},
 			},
 			{
-				q: 0.32525510204081637,
+				q: 0.2971938775510204,
 				communities: [][]graph.Node{
 					{simple.Node(0), simple.Node(3), simple.Node(5), simple.Node(7)},
 					{simple.Node(1), simple.Node(2), simple.Node(4), simple.Node(6)},
-					{simple.Node(8), simple.Node(10), simple.Node(11), simple.Node(13), simple.Node(15)},
+					{simple.Node(8), simple.Node(15)},
 					{simple.Node(9), simple.Node(12), simple.Node(14)},
+					{simple.Node(10), simple.Node(11), simple.Node(13)},
 				},
 			},
 			{
@@ -198,7 +202,7 @@ var communityDirectedQTests = []struct {
 }
 
 func TestLouvainDirected(t *testing.T) {
-	const louvainIterations = 3
+	const louvainIterations = 20
 
 	for _, test := range communityDirectedQTests {
 		g := simple.NewDirectedGraph(0, 0)
