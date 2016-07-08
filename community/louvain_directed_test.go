@@ -68,6 +68,8 @@ var communityDirectedQTests = []struct {
 	{
 		name: "zachary",
 		g:    zachary,
+		// community structure and modularity calculated by C++ implementation: louvain igraph.
+		// Note that louvain igraph returns Q as an unscaled value.
 		structures: []structure{
 			{
 				resolution: 1,
@@ -77,7 +79,7 @@ var communityDirectedQTests = []struct {
 					2: linksTo(8, 9, 14, 15, 18, 20, 22, 26, 29, 30, 32, 33),
 					3: linksTo(23, 24, 25, 27, 28, 31),
 				},
-				want: 0.43470597660631316, tol: 1e-4,
+				want: 34.3417721519 / 79 /* 5->6 and 6->5 because of co-equal rank */, tol: 1e-4,
 			},
 		},
 		wantLevels: []level{
@@ -148,6 +150,8 @@ var communityDirectedQTests = []struct {
 	{
 		name: "blondel",
 		g:    blondel,
+		// community structure and modularity calculated by C++ implementation: louvain igraph.
+		// Note that louvain igraph returns Q as an unscaled value.
 		structures: []structure{
 			{
 				resolution: 1,
@@ -155,7 +159,7 @@ var communityDirectedQTests = []struct {
 					0: linksTo(0, 1, 2, 3, 4, 5, 6, 7),
 					1: linksTo(8, 9, 10, 11, 12, 13, 14, 15),
 				},
-				want: 0.3979591836734694, tol: 1e-4,
+				want: 11.1428571429 / 28, tol: 1e-4,
 			},
 		},
 		wantLevels: []level{
